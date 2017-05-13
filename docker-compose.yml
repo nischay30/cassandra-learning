@@ -1,0 +1,21 @@
+version: "2"
+services:
+  cassandra1:
+    build: .
+    image: cassandralogin
+  cassandra2:
+    image: cassandralogin
+    depends_on:
+      - cassandra1
+    links:
+      - cassandra1    
+    environment:
+      CASSANDRA_SEEDS: cassandra1
+  cassandra3:
+    image: cassandralogin
+    depends_on:
+      - cassandra1
+    links:
+      - cassandra1    
+    environment:
+      CASSANDRA_SEEDS: cassandra1      

@@ -30,6 +30,15 @@ function createTable(req, res) {
 		`NAME TEXT, CITY TEXT, dob DATE, GENDER TEXT, MOBILE BIGINT)`;
 	client.execute(query, [], {prepare: true}, (err, result) => {
 		if(err) {console.log(err); res.status(500).send({error: 'Something Failed'}); return; }
+		createIndexOnName(req, res);
+	});
+}
+
+// will create a index on name column of table
+function createIndexOnName(req, res) {
+	const query = `CREATE INDEX ON ` +config.tableName+` (NAME)`;
+	client.execute(query, [], {prepare: true}, (err, results) => {
+		if(err) {console.log(err); res.status(500).send({error: 'Something Failed'}); return; }
 		insertData(req, res);
 	});
 }

@@ -42,13 +42,13 @@ class Form extends Component {
 		event.preventDefault();
 		const userData = this.state;
 		this.setState({name: '', mobile: '', city: '', gender: 'Male', DOB: new Date()});
-
+		this.props.dialogState();
 		request
 		.post(`${config.serverUrl}/add`)
 		.send(userData)
 		.end((err, res) => {
-			if(err) { console.log('Err', err); return; }
-			alert('Data Saved', this.props.dialogState());
+			if(err) { alert('Error happened. Data not saved'); console.log('Err', err); return; }
+			alert('Data Save');
 		});
 	}
 

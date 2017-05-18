@@ -43,7 +43,6 @@ class UpdationForm extends Component {
 		const userData = this.state;
 		this.setState({name: '', mobile: '', city: '', gender: 'Male', DOB: new Date()});
 		this.props.dialogState();
-
 		request
 		.post(`${config.serverUrl}/update`)
 		.send(userData)

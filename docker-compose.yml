@@ -1,5 +1,20 @@
 version: "2"
 services:
+  phonebook:
+    build: './phonebook'
+    image: phonebook
+    depends_on: 
+      - cassandra1
+    links:
+      - cassandra1
+    ports:
+      - 8080:8080
+    environment:
+      CASSANDRA_USER_NAME: cassandra
+      CASSANDRA_PASSWORD: cassandra
+      KEYSPACE: usersks
+      TABLENAME: phonebook
+      HOSTS: 'cassandra1,cassandra2,cassandra3'
   cassandra1:
     build: .
     image: cassandralogin
@@ -10,8 +25,6 @@ services:
     image: cassandralogin
     depends_on:
       - cassandra1
-    links:
-      - cassandra1
     ports:
       - 9042    
     environment:
@@ -20,8 +33,6 @@ services:
     image: cassandralogin
     depends_on:
       - cassandra1
-    links:
-      - cassandra1 
     ports:
       - 9042   
     environment:

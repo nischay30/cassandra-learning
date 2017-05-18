@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { 
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ActionDelete from 'material-ui/svg-icons/action/delete';
+import ImageEdit from 'material-ui/svg-icons/image/edit';
+
+import {
 	Table,
 	TableBody,
 	TableHeader,
@@ -22,13 +26,30 @@ class ViewAll extends Component {
 
 		const rows = this.props.data.map((row, index) => {
 			return(
-				<TableRow key={row.id}>
+				<TableRow key={index}>
 					<TableRowColumn style={{fontSize: 18}}>{row.name}</TableRowColumn>
 					<TableRowColumn style={{fontSize: 18}}>{row.city}</TableRowColumn>
 					<TableRowColumn style={{fontSize: 18}}>{row.dob}</TableRowColumn>
 					<TableRowColumn style={{fontSize: 18}}>{row.gender}</TableRowColumn>
 					<TableRowColumn style={{fontSize: 18}}>{row.mobile}</TableRowColumn>
-					<TableRowColumn style={{fontSize: 18}}>{row.mobile}</TableRowColumn>
+					<TableRowColumn>
+					  <FloatingActionButton
+					  	mini={true}
+					  	zDepth={3}
+					  	style={{marginRight: 20}}
+					  	onTouchTap={this.props.handleDelete.bind(this, row.name)}
+					  >
+					   	<ActionDelete />
+            </FloatingActionButton>
+            <FloatingActionButton
+					  	mini={true}
+					  	zDepth={3}
+					  	style={{marginRight: 20}}
+					  	onTouchTap={this.props.handleUpdate.bind(this, row.name)}
+					  >
+					   	<ImageEdit />
+            </FloatingActionButton>
+          </TableRowColumn>
 				</TableRow>
 			);
 		});

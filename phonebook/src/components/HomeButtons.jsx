@@ -70,8 +70,21 @@ class HomeButtons extends Component {
 		});
 	}
 
+	handleDelete = (name, event) => {
+		request
+			.get(`${config.serverUrl}/delete/${name}`)
+			.end((err, res) => {
+				if(err) { alert('There is some error'); return; }
+				this.setState({ viewData: res.body});
+			});
+	}
+
+	handleUpdate = (name, event) => {
+		console.log(name);
+	}
+
 	render() {
-		const buttons = [	<RaisedButton
+		const homeButtons = [	<RaisedButton
 												label='Add'
 												key='add'
 												primary={ true }
@@ -99,7 +112,7 @@ class HomeButtons extends Component {
 
 		return(
 			<div>
-				{ buttons }
+				{ homeButtons }
 				<Dialog
 					title='Add Entry in Database'
 					open={this.state.openAddDialog}
@@ -118,7 +131,12 @@ class HomeButtons extends Component {
 											onTouchTap={this.handleCloseDialog}
 										/>}
 				>
-					<ViewAll data={this.state.viewData} dialogState={this.handleCloseDialog}/>
+					<ViewAll
+						data={this.state.viewData}
+						dialogState={this.handleCloseDialog}
+						handleDelete={this.handleDelete}
+	 					handleUpdate={this.handleUpdate}
+					/>
 				</Dialog>
 				<Dialog
 					title='Search By Name(Case-sensitive)'
@@ -150,7 +168,12 @@ class HomeButtons extends Component {
 							style={style}
 						/>
 					</form>
-					 <ViewAll data={this.state.viewData} dialogState={this.handleCloseDialog}/>
+  				  <ViewAll
+						 	data={this.state.viewData}
+						 	dialogState={this.handleCloseDialog}
+		 					handleDelete={this.handleDelete}
+		 					handleUpdate={this.handleUpdate}
+					 	/>
 				</Dialog>
 			</div>
 		);

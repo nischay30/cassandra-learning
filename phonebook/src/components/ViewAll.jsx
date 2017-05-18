@@ -45,7 +45,7 @@ class ViewAll extends Component {
 					  	mini={true}
 					  	zDepth={3}
 					  	style={{marginRight: 20}}
-					  	onTouchTap={this.props.handleUpdate.bind(this, row.name)}
+					  	onTouchTap={this.props.handleUpdate.bind(this, row)}
 					  >
 					   	<ImageEdit />
             </FloatingActionButton>

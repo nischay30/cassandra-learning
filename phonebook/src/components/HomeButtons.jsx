@@ -6,6 +6,7 @@ import TextField from 'material-ui/TextField';
 
 import request from 'superagent';
 
+import UpdationForm from './UpdationForm';
 import Form from './Form';
 import ViewAll from './ViewAll';
 import config from '../config';
@@ -25,7 +26,9 @@ class HomeButtons extends Component {
 			openAddDialog: false,
 			openViewAllDialog: false,
 			openSearchDialog: false,
+			openUpdateDialog: false,
 			searchName: '',
+			updationData: {},
 			viewData: []
 		}
 	}
@@ -79,8 +82,16 @@ class HomeButtons extends Component {
 			});
 	}
 
-	handleUpdate = (name, event) => {
-		console.log(name);
+	handleUpdate = (data, event) => {
+		this.setState({openUpdateDialog: true, updationData: data});
+	}
+
+	handleAfterUpdation = (data) => {
+		this.setState({viewData: data});
+	}
+
+	closeUpdateDialog = (event) => {
+		this.setState({openUpdateDialog: false});
 	}
 
 	render() {
@@ -174,6 +185,17 @@ class HomeButtons extends Component {
 		 					handleDelete={this.handleDelete}
 		 					handleUpdate={this.handleUpdate}
 					 	/>
+				</Dialog>
+				<Dialog
+					title='Update Entry'
+					open={this.state.openUpdateDialog}
+					modal={ true }
+				>
+					<UpdationForm
+						dialogState={this.closeUpdateDialog}
+						data={this.state.updationData}
+						dataReturnedAfterUpdation={this.handleAfterUpdation}
+					/>
 				</Dialog>
 			</div>
 		);

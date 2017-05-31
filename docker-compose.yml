@@ -9,6 +9,7 @@ services:
       - cassandra1
     ports:
       - 8080:8080
+    restart: on-failure
     environment:
       CASSANDRA_USER_NAME: cassandra
       CASSANDRA_PASSWORD: cassandra

@@ -9,9 +9,12 @@ const hosts = config.hosts.split(',');
 const authProvider = new cassandra.auth.PlainTextAuthProvider(userName, password);
 const client = new cassandra.Client({ contactPoints: hosts, keyspace: keySpace, authProvider: authProvider });
 
-client.connect((err, res) => {
-	if(err) { console.log('Err:', err); return; }
-	console.log('Cassandra is connected with configuration', config);
-});
+function createConnection() {
+	client.connect((err, res) => {
+		if(err) { console.log('Err:', err); createConnection(); return; }
+		console.log('Cassandra is connected with configuration', config);
+	});
+}
 
+createConnection();
 module.exports = client;
